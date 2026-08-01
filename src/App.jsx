@@ -1,9 +1,11 @@
+import Navbar from "./components/layout/Navbar";
+import Hero from "./components/sections/Hero";
+
 function App() {
   return (
     <div>
-      <h1 className="text-4xl font-bold text-center mt-20">
-        LuxeCart
-      </h1>
+      <Navbar />
+      <Hero />
     </div>
   );
 }
