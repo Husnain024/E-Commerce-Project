@@ -1,16 +1,20 @@
+import { Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/layout/Navbar";
-import Hero from "./components/sections/Hero";
-import Categories from "./components/sections/Categories";
-import FeaturedProducts from "./components/sections/FeaturedProducts";
+
+import Home from "./pages/Home";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
-    <div>
+    <>
       <Navbar />
-      <Hero />
-      <Categories />
-      <FeaturedProducts />
-    </div>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+      </Routes>
+    </>
   );
 }
 
