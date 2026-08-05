@@ -7,7 +7,7 @@ function Categories() {
     <section className="bg-gray-50 py-20">
       <div className="mx-auto max-w-7xl px-6">
         {/* Heading */}
-        <div className="mb-14 text-center">
+        <div className="mb-14 flex flex-col items-center text-center">
           <p className="font-semibold uppercase tracking-[4px] text-blue-600">
             Categories
           </p>
@@ -17,10 +17,11 @@ function Categories() {
           </h2>
           <br />
 
-          {/* <p className="mx-auto mt-5 max-w-2xl text-lg text-gray-500">
+          <p className="mt-5 max-w-2xl text-center text-lg leading-relaxed text-gray-500">
             Browse our premium collections and discover products from your
             favorite categories.
-          </p> */}
+          </p>
+          <br />
         </div>
 
         {/* Category Cards */}
