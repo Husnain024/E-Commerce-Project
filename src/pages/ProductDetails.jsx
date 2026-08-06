@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { products } from "../data/products";
 
@@ -5,6 +6,15 @@ function ProductDetails() {
   const { id } = useParams();
 
   const product = products.find((item) => item.id === Number(id));
+  const [quantity, setQuantity] = useState(1);
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   if (!product) {
     return (
@@ -16,21 +26,63 @@ function ProductDetails() {
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-20">
-      <h1 className="mb-6 text-4xl font-bold">Product Details</h1>
-
       <img
         src={product.image}
         alt={product.name}
         className="h-96 w-full rounded-xl object-cover"
       />
 
-      <h2 className="mt-8 text-3xl font-bold">{product.name}</h2>
+      <h1 className="mt-8 text-4xl font-bold">{product.name}</h1>
 
-      <p className="mt-3 text-lg text-gray-500">{product.category}</p>
+      <span
+        className={`mt-4 inline-block rounded-full px-3 py-1 text-sm font-semibold text-white ${
+          product.badge === "Sale" ? "bg-red-500" : "bg-green-500"
+        }`}
+      >
+        {product.badge}
+      </span>
 
-      <p className="mt-4 text-3xl font-bold text-blue-600">${product.price}</p>
+      <p className="mt-5 text-xl text-yellow-500">⭐ {product.rating}</p>
 
-      <p className="mt-3 text-yellow-500">⭐ {product.rating}</p>
+      <div className="mt-4 flex items-center gap-3">
+        <span className="text-3xl font-bold text-blue-600">
+          ${product.price}
+        </span>
+
+        <span className="text-xl text-gray-400 line-through">
+          ${product.oldPrice}
+        </span>
+      </div>
+
+      <div className="mt-6">
+        <h3 className="text-xl font-semibold">Category</h3>
+
+        <p className="mt-2 text-gray-600">{product.category}</p>
+      </div>
+      {/* Description */}
+      <div className="mt-8">
+        <h3 className="text-xl font-semibold">Description</h3>
+
+        <p className="mt-3 leading-7 text-gray-600">{product.description}</p>
+      </div>
+      <div className="mt-8">
+        <h3 className="mb-3 text-xl font-semibold">Quantity</h3>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={decreaseQuantity}
+            className="flex h-10 w-10 items-center justify-center rounded-lg border text-xl font-bold hover:bg-gray-100"
+          >
+            -
+          </button>
+          <span className="text-xl font-semibold">{quantity}</span>
+          <button
+            onClick={increaseQuantity}
+            className="flex h-10 w-10 items-center justify-center rounded-lg border text-xl font-bold hover:bg-gray-100"
+          >
+            +
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
