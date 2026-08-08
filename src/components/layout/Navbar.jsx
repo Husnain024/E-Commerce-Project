@@ -1,29 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import {
-  FiSearch,
-  FiHeart,
-  FiShoppingCart,
-  FiMenu,
-} from "react-icons/fi";
+import { FiSearch, FiHeart, FiShoppingCart, FiMenu } from "react-icons/fi";
+import { CartContext } from "../../context/CartContext";
 
 function Navbar() {
+  const { cart } = useContext(CartContext);
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
       <div className="mx-auto flex h-12 max-w-7xl items-center justify-between px-8">
         {/* Mobile Menu */}
-        <button
-          aria-label="Open Menu"
-          className="text-2xl lg:hidden"
-        >
+        <button aria-label="Open Menu" className="text-2xl lg:hidden">
           <FiMenu />
         </button>
 
         {/* Logo */}
-        <Link
-          to="/"
-          className="text-3xl font-bold tracking-wide"
-        >
+        <Link to="/" className="text-3xl font-bold tracking-wide">
           Luxe<span className="text-blue-600">Cart</span>
         </Link>
 
@@ -67,7 +58,7 @@ function Navbar() {
         <div className="flex items-center gap-6">
           {/* Search */}
           <div className="relative hidden xl:block">
-            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+            <FiSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" />
 
             <input
               type="text"
@@ -77,18 +68,12 @@ function Navbar() {
           </div>
 
           {/* Tablet Search */}
-          <button
-            aria-label="Search"
-            className="xl:hidden"
-          >
+          <button aria-label="Search" className="xl:hidden">
             <FiSearch size={24} />
           </button>
 
           {/* Wishlist */}
-          <button
-            aria-label="Wishlist"
-            className="relative hidden sm:block"
-          >
+          <button aria-label="Wishlist" className="relative hidden sm:block">
             <FiHeart size={24} />
 
             <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
@@ -97,16 +82,16 @@ function Navbar() {
           </button>
 
           {/* Cart */}
-          <button
-            aria-label="Cart"
-            className="relative"
-          >
-            <FiShoppingCart size={24} />
+          <Link to="/cart" className="relative cursor-pointer">
+            <FiShoppingCart
+              size={22}
+              className="transition hover:text-blue-600"
+            />
 
             <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-xs text-white">
-              3
+              {cart.length}
             </span>
-          </button>
+          </Link>
 
           {/* Login */}
           <Link

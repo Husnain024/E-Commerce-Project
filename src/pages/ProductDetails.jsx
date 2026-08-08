@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { products } from "../data/products";
+import { CartContext } from "../context/CartContext";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -15,6 +16,8 @@ function ProductDetails() {
       setQuantity(quantity - 1);
     }
   };
+  // Add to Cart
+  const { cart, setCart } = useContext(CartContext);
 
   if (!product) {
     return (
@@ -65,6 +68,7 @@ function ProductDetails() {
 
         <p className="mt-3 leading-7 text-gray-600">{product.description}</p>
       </div>
+      {/* Quantity */}
       <div className="mt-8">
         <h3 className="mb-3 text-xl font-semibold">Quantity</h3>
         <div className="flex items-center gap-4">
@@ -83,6 +87,21 @@ function ProductDetails() {
           </button>
         </div>
       </div>
+      {/* Add to Cart */}
+      <button
+        onClick={() => {
+          setCart([
+            ...cart,
+            {
+              ...product,
+              quantity: quantity,
+            },
+          ]);
+        }}
+        className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
+      >
+        Add to Cart
+      </button>
     </div>
   );
 }
