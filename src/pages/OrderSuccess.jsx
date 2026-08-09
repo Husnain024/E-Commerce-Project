@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function OrderSuccess() {
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-6">
@@ -13,6 +15,12 @@ function OrderSuccess() {
         <p className="mt-4 text-gray-500">
           Thank you for your purchase. Your order has been received.
         </p>
+        <Link
+          to="/"
+          className="mt-8 inline-block rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700"
+        >
+          Continue Shopping
+        </Link>
       </div>
     </div>
   );

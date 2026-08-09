@@ -1,38 +1,58 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { WishlistContext } from "../../context/WishlistContext";
 
 function ProductCard({ product }) {
+  const { wishlist, setWishlist } = useContext(WishlistContext);
+
+  const isWishlisted = wishlist.some((item) => item.id === product.id);
+
+  const handleWishlist = (e) => {
+    e.preventDefault();
+
+    if (!isWishlisted) {
+      setWishlist([...wishlist, product]);
+    }
+  };
+
   return (
-    <Link to={`/product/${product.id}`} className="block">
-      <div className="group overflow-hidden rounded-2xl bg-white shadow-md transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl">
-        {/* Product Image */}
-        <div className="relative overflow-hidden">
+    <div className="group overflow-hidden rounded-2xl bg-white shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-xl">
+      {/* Product Image */}
+      <div className="relative">
+        <Link to={`/product/${product.id}`}>
           <img
             src={product.image}
             alt={product.name}
-            className="h-64 w-full object-cover transition duration-500 group-hover:scale-110"
+            className="h-64 w-full object-cover"
           />
+        </Link>
 
-          {/* Badge */}
-          <span
-            className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold text-white ${
-              product.badge === "Sale" ? "bg-red-500" : "bg-green-500"
-            }`}
-          >
-            {product.badge}
-          </span>
+        {/* Badge */}
+        <span
+          className={`absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold text-white ${
+            product.badge === "Sale" ? "bg-red-500" : "bg-green-500"
+          }`}
+        >
+          {product.badge}
+        </span>
 
-          {/* Wishlist */}
-          <button
-            className="absolute right-4 top-4 rounded-full bg-white p-2 shadow transition hover:bg-red-500 hover:text-white"
-            aria-label="Wishlist"
-          >
-            <FiHeart size={18} />
-          </button>
-        </div>
+        {/* Wishlist */}
+        <button
+          onClick={handleWishlist}
+          className={`absolute right-4 top-4 rounded-full p-2 shadow transition ${
+            isWishlisted
+              ? "bg-red-500 text-white"
+              : "bg-white hover:bg-red-500 hover:text-white"
+          }`}
+          aria-label="Wishlist"
+        >
+          <FiHeart size={18} />
+        </button>
+      </div>
 
-        {/* Product Details */}
+      {/* Product Details */}
+      <Link to={`/product/${product.id}`}>
         <div className="p-5">
           <p className="text-sm text-gray-500">{product.category}</p>
 
@@ -43,6 +63,7 @@ function ProductCard({ product }) {
           {/* Rating */}
           <div className="mt-3 flex items-center gap-2">
             <span className="text-yellow-500">⭐</span>
+
             <span className="font-medium text-gray-700">{product.rating}</span>
           </div>
 
@@ -58,13 +79,16 @@ function ProductCard({ product }) {
           </div>
 
           {/* Add to Cart */}
-          <button className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700">
+          <button
+            onClick={(e) => e.preventDefault()}
+            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 font-semibold text-white transition duration-300 hover:bg-blue-700"
+          >
             <FiShoppingCart size={18} />
             Add to Cart
           </button>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 
