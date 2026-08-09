@@ -9,6 +9,9 @@ import Checkout from "./pages/Checkout";
 import OrderSuccess from "./pages/OrderSuccess";
 import Wishlist from "./pages/Wishlist";
 import Shop from "./pages/Shop";
+import About from "./pages/About";
+import Deals from "./pages/Deals";
+import Footer from "./components/layout/Footer";
 
 function App() {
   return (
@@ -23,7 +26,11 @@ function App() {
         <Route path="/order-success" element={<OrderSuccess />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/deals" element={<Deals />} />
       </Routes>
+
+      <Footer />
     </>
   );
 }
