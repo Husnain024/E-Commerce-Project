@@ -56,7 +56,7 @@ function ProductCard({ product }) {
         <div className="p-5">
           <p className="text-sm text-gray-500">{product.category}</p>
 
-          <h3 className="mt-2 text-xl font-semibold text-gray-900">
+          <h3 className="mt-2 text-lg font-semibold text-gray-900 sm:text-xl">
             {product.name}
           </h3>
 
@@ -69,7 +69,7 @@ function ProductCard({ product }) {
 
           {/* Price */}
           <div className="mt-4 flex items-center gap-3">
-            <span className="text-2xl font-bold text-blue-600">
+            <span className="text-xl font-bold text-blue-600 sm:text-2xl">
               ${product.price}
             </span>
 

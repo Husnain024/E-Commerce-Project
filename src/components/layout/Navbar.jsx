@@ -1,6 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+
 import { Link, NavLink } from "react-router-dom";
-import { FiSearch, FiHeart, FiShoppingCart } from "react-icons/fi";
+
+import { FiSearch, FiHeart, FiShoppingCart, FiMenu } from "react-icons/fi";
 
 import { CartContext } from "../../context/CartContext";
 import { WishlistContext } from "../../context/WishlistContext";
@@ -8,6 +10,9 @@ import { WishlistContext } from "../../context/WishlistContext";
 function Navbar() {
   const { cart } = useContext(CartContext);
   const { wishlist } = useContext(WishlistContext);
+
+  // Mobile menu state
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
@@ -103,8 +108,72 @@ function Navbar() {
           >
             Login
           </Link>
+
+          {/* Mobile Menu Button */}
+          <button
+            aria-label="Menu"
+            className="lg:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <FiMenu size={26} />
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="border-t bg-white px-6 py-5 lg:hidden">
+          <nav className="flex flex-col gap-5 font-medium text-gray-700">
+            <NavLink
+              to="/"
+              onClick={() => setIsMenuOpen(false)}
+              className="hover:text-blue-600"
+            >
+              Home
+            </NavLink>
+
+            <NavLink
+              to="/shop"
+              onClick={() => setIsMenuOpen(false)}
+              className="hover:text-blue-600"
+            >
+              Shop
+            </NavLink>
+
+            <NavLink
+              to="/categories"
+              onClick={() => setIsMenuOpen(false)}
+              className="hover:text-blue-600"
+            >
+              Categories
+            </NavLink>
+
+            <NavLink
+              to="/deals"
+              onClick={() => setIsMenuOpen(false)}
+              className="hover:text-blue-600"
+            >
+              Deals
+            </NavLink>
+
+            <NavLink
+              to="/about"
+              onClick={() => setIsMenuOpen(false)}
+              className="hover:text-blue-600"
+            >
+              About
+            </NavLink>
+            {/* Login */}
+            <Link
+              to="/login"
+              onClick={() => setIsMenuOpen(false)}
+              className="w-fit rounded-full border border-blue-600 px-6 py-2 text-blue-600 transition hover:bg-blue-600 hover:text-white"
+            >
+              Login
+            </Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
