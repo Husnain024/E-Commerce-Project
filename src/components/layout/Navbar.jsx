@@ -2,10 +2,18 @@ import React, { useContext, useState } from "react";
 
 import { Link, NavLink } from "react-router-dom";
 
-import { FiSearch, FiHeart, FiShoppingCart, FiMenu } from "react-icons/fi";
+import {
+  FiSearch,
+  FiHeart,
+  FiShoppingCart,
+  FiMenu,
+  FiMoon,
+  FiSun,
+} from "react-icons/fi";
 
 import { CartContext } from "../../context/CartContext";
 import { WishlistContext } from "../../context/WishlistContext";
+import { ThemeContext } from "../../context/ThemeContext";
 
 function Navbar() {
   const { cart } = useContext(CartContext);
@@ -13,6 +21,7 @@ function Navbar() {
 
   // Mobile menu state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
@@ -74,6 +83,15 @@ function Navbar() {
           {/* Tablet Search */}
           <button aria-label="Search" className="xl:hidden">
             <FiSearch size={24} />
+          </button>
+
+          {/* Dark Mode */}
+          <button
+            onClick={toggleDarkMode}
+            aria-label="Toggle dark mode"
+            className="rounded-full p-2 transition hover:bg-gray-100"
+          >
+            {darkMode ? <FiSun size={22} /> : <FiMoon size={22} />}
           </button>
 
           {/* Wishlist */}

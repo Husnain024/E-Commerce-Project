@@ -1,6 +1,6 @@
 function PromoBanner() {
   return (
-    <section className="bg-blue-600">
+    <section className="bg-blue-600 dark:bg-blue-700">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 py-10 text-center text-white md:flex-row md:text-left">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[3px] text-blue-200">
@@ -11,7 +11,7 @@ function PromoBanner() {
             Get up to 30% Off
           </h2>
 
-          <p className="mt-2 text-blue-100">
+          <p className="mt-2 text-blue-100 dark:text-blue-200">
             Upgrade your style with our latest collection.
           </p>
         </div>

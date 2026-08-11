@@ -28,14 +28,16 @@ function ProductDetails() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-20">
+    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-20">
       <img
         src={product.image}
         alt={product.name}
-        className="h-96 w-full rounded-xl object-cover"
+        className="h-72 w-full rounded-xl object-cover sm:h-96"
       />
 
-      <h1 className="mt-8 text-4xl font-bold">{product.name}</h1>
+      <h1 className="mt-6 text-3xl font-bold sm:mt-8 sm:text-4xl">
+        {product.name}
+      </h1>
 
       <span
         className={`mt-4 inline-block rounded-full px-3 py-1 text-sm font-semibold text-white ${
@@ -48,7 +50,7 @@ function ProductDetails() {
       <p className="mt-5 text-xl text-yellow-500">⭐ {product.rating}</p>
 
       <div className="mt-4 flex items-center gap-3">
-        <span className="text-3xl font-bold text-blue-600">
+        <span className="text-2xl font-bold text-blue-600 sm:text-3xl">
           ${product.price}
         </span>
 

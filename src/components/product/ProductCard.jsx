@@ -17,7 +17,7 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div className="group overflow-hidden rounded-2xl bg-white shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-xl">
+    <div className="group overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-md transition duration-300 hover:-translate-y-2 hover:shadow-xl">
       {/* Product Image */}
       <div className="relative">
         <Link to={`/product/${product.id}`}>
@@ -54,9 +54,11 @@ function ProductCard({ product }) {
       {/* Product Details */}
       <Link to={`/product/${product.id}`}>
         <div className="p-5">
-          <p className="text-sm text-gray-500">{product.category}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            {product.category}
+          </p>
 
-          <h3 className="mt-2 text-lg font-semibold text-gray-900 sm:text-xl">
+          <h3 className="mt-2 text-lg font-semibold text-gray-900 dark:text-white sm:text-xl">
             {product.name}
           </h3>
 

@@ -1,10 +1,12 @@
 import React from "react";
+
 import { products } from "../../data/products";
+
 import ProductCard from "../product/ProductCard";
 
 function FeaturedProducts() {
   return (
-    <section className="bg-white py-20">
+    <section className="bg-white py-20 dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-6">
         {/* Heading */}
 
@@ -13,9 +15,11 @@ function FeaturedProducts() {
             Products
           </p>
 
-          <h2 className="mt-3 text-5xl font-bold">Featured Products</h2>
+          <h2 className="mt-3 text-5xl font-bold text-gray-900 dark:text-white">
+            Featured Products
+          </h2>
 
-          <p className="mt-5 text-gray-500">
+          <p className="mt-5 text-gray-500 dark:text-gray-400">
             Discover our best-selling products.
           </p>
         </div>

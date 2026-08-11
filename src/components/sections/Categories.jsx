@@ -4,7 +4,7 @@ import { categories } from "../../data/categories";
 
 function Categories() {
   return (
-    <section className="bg-gray-50 py-20">
+    <section className="bg-gray-50 py-20 dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-6">
         {/* Heading */}
         <div className="mb-14 flex flex-col items-center text-center">
@@ -12,15 +12,17 @@ function Categories() {
             Categories
           </p>
 
-          <h2 className="mt-3 text-5xl font-bold text-gray-900">
+          <h2 className="mt-3 text-4xl font-bold text-gray-900 dark:text-white">
             Shop by Category
           </h2>
+
           <br />
 
           <p className="mt-5 max-w-2xl text-center text-lg leading-relaxed text-gray-500">
             Browse our premium collections and discover products from your
             favorite categories.
           </p>
+
           <br />
         </div>
 
@@ -33,13 +35,13 @@ function Categories() {
               <Link
                 key={category.id}
                 to={`/category/${category.name.toLowerCase()}`}
-                className="group flex cursor-pointer flex-col items-center rounded-2xl bg-white p-8 shadow-md transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl"
+                className="group flex cursor-pointer flex-col items-center rounded-2xl bg-white p-8 shadow-md transition duration-300 ease-in-out hover:-translate-y-2 hover:shadow-xl dark:bg-gray-800"
               >
                 <div className="mb-5 rounded-full bg-blue-100 p-5 text-blue-600 transition duration-300 ease-in-out group-hover:bg-blue-600 group-hover:text-white">
                   <Icon size={40} />
                 </div>
 
-                <h3 className="text-lg font-semibold text-gray-800">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
                   {category.name}
                 </h3>
               </Link>

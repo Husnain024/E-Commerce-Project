@@ -25,7 +25,7 @@ function Benefits() {
   ];
 
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white py-16 dark:bg-gray-900">
       <div className="mx-auto grid max-w-7xl gap-8 px-6 sm:grid-cols-2 lg:grid-cols-4">
         {benefits.map((benefit, index) => {
           const Icon = benefit.icon;
@@ -33,17 +33,17 @@ function Benefits() {
           return (
             <div
               key={index}
-              className="flex flex-col items-center rounded-2xl border border-gray-100 p-6 text-center transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+              className="flex flex-col items-center rounded-2xl border border-gray-100 bg-white p-6 text-center transition duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
             >
               <div className="rounded-full bg-blue-100 p-4 text-blue-600">
                 <Icon size={28} />
               </div>
 
-              <h3 className="mt-5 text-lg font-bold text-gray-900">
+              <h3 className="mt-5 text-lg font-bold text-gray-900 dark:text-white">
                 {benefit.title}
               </h3>
 
-              <p className="mt-2 text-sm leading-6 text-gray-500">
+              <p className="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
                 {benefit.description}
               </p>
             </div>
