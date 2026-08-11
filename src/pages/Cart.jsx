@@ -13,7 +13,7 @@ function Cart() {
   );
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-50 dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
         {/* Heading */}
         <div>
@@ -21,19 +21,19 @@ function Cart() {
             Your Items
           </p>
 
-          <h1 className="mt-3 text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h1 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
             Shopping Cart
           </h1>
         </div>
 
         {cart.length === 0 ? (
           /* Empty Cart */
-          <div className="mt-12 rounded-2xl bg-white p-10 text-center shadow-sm">
-            <h2 className="text-2xl font-semibold text-gray-900">
+          <div className="mt-12 rounded-2xl bg-white p-10 text-center shadow-sm dark:bg-gray-800">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
               Your cart is empty
             </h2>
 
-            <p className="mt-3 text-gray-500">
+            <p className="mt-3 text-gray-500 dark:text-gray-400">
               Add some products to your cart and they will appear here.
             </p>
 
@@ -51,7 +51,7 @@ function Cart() {
               {cart.map((item) => (
                 <div
                   key={item.id}
-                  className="flex flex-col gap-5 rounded-2xl bg-white p-5 shadow-sm sm:flex-row sm:items-center"
+                  className="flex flex-col gap-5 rounded-2xl bg-white p-5 shadow-sm dark:bg-gray-800 sm:flex-row sm:items-center"
                 >
                   {/* Product Image */}
                   <img
@@ -62,9 +62,11 @@ function Cart() {
 
                   {/* Product Details */}
                   <div className="flex-1">
-                    <p className="text-sm text-gray-500">{item.category}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {item.category}
+                    </p>
 
-                    <h2 className="mt-1 text-xl font-semibold text-gray-900">
+                    <h2 className="mt-1 text-xl font-semibold text-gray-900 dark:text-white">
                       {item.name}
                     </h2>
 
@@ -83,7 +85,7 @@ function Cart() {
                         -
                       </button>
 
-                      <span className="min-w-6 text-center font-semibold">
+                      <span className="min-w-6 text-center font-semibold text-gray-900 dark:text-white">
                         {item.quantity}
                       </span>
 
@@ -111,29 +113,27 @@ function Cart() {
             </div>
 
             {/* Order Summary */}
-            <div className="h-fit rounded-2xl bg-white p-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-gray-900">
+            <div className="h-fit rounded-2xl bg-white p-6 shadow-sm dark:bg-gray-800">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Order Summary
               </h2>
 
               {/* Subtotal */}
               <div className="mt-6 space-y-4">
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-gray-600 dark:text-gray-400">
                   <span>Subtotal</span>
-
                   <span className="font-medium">${subtotal.toFixed(2)}</span>
                 </div>
 
                 {/* Shipping */}
-                <div className="flex justify-between text-gray-600">
+                <div className="flex justify-between text-gray-600 dark:text-gray-400">
                   <span>Shipping</span>
-
                   <span className="font-semibold text-green-600">Free</span>
                 </div>
 
                 {/* Divider */}
-                <div className="border-t pt-4">
-                  <div className="flex justify-between text-xl font-bold">
+                <div className="border-t border-gray-200 pt-4 dark:border-gray-700">
+                  <div className="flex justify-between text-xl font-bold text-gray-900 dark:text-white">
                     <span>Total</span>
 
                     <span className="text-blue-600">
@@ -154,7 +154,7 @@ function Cart() {
               {/* Continue Shopping */}
               <Link
                 to="/shop"
-                className="mt-3 block text-center text-sm font-medium text-gray-500 transition hover:text-blue-600"
+                className="mt-3 block text-center text-sm font-medium text-gray-500 transition hover:text-blue-600 dark:text-gray-400"
               >
                 Continue Shopping
               </Link>

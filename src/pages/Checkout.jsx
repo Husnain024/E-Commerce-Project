@@ -20,7 +20,8 @@ function Checkout() {
     city: "",
     postalCode: "",
   });
-  //   useNavigate
+
+  // useNavigate
   const navigate = useNavigate();
 
   // Handle Form Submit
@@ -43,16 +44,17 @@ function Checkout() {
   };
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-50 dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
-        <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        {/* Heading */}
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
           Checkout
         </h1>
 
         <div className="mt-10 grid gap-10 lg:grid-cols-2">
           {/* Customer Information */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
               Customer Information
             </h2>
 
@@ -68,7 +70,7 @@ function Checkout() {
                     name: e.target.value,
                   })
                 }
-                className="w-full rounded-xl border px-4 py-3 outline-none focus:border-blue-600"
+                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
               />
 
               {/* Email */}
@@ -82,7 +84,7 @@ function Checkout() {
                     email: e.target.value,
                   })
                 }
-                className="w-full rounded-xl border px-4 py-3 outline-none focus:border-blue-600"
+                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
               />
 
               {/* Phone */}
@@ -96,7 +98,7 @@ function Checkout() {
                     phone: e.target.value,
                   })
                 }
-                className="w-full rounded-xl border px-4 py-3 outline-none focus:border-blue-600"
+                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
               />
 
               {/* Address */}
@@ -110,7 +112,7 @@ function Checkout() {
                     address: e.target.value,
                   })
                 }
-                className="w-full rounded-xl border px-4 py-3 outline-none focus:border-blue-600"
+                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
               />
 
               <div className="grid gap-5 sm:grid-cols-2">
@@ -125,7 +127,7 @@ function Checkout() {
                       city: e.target.value,
                     })
                   }
-                  className="w-full rounded-xl border px-4 py-3 outline-none focus:border-blue-600"
+                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
                 />
 
                 {/* Postal Code */}
@@ -139,8 +141,10 @@ function Checkout() {
                       postalCode: e.target.value,
                     })
                   }
-                  className="w-full rounded-xl border px-4 py-3 outline-none focus:border-blue-600"
+                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
                 />
+
+                {/* Place Order */}
                 <button
                   type="submit"
                   className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
@@ -152,24 +156,28 @@ function Checkout() {
           </div>
 
           {/* Order Summary */}
-          <div className="h-fit rounded-2xl bg-white p-6 shadow-sm">
-            <h2 className="text-2xl font-semibold">Order Summary</h2>
+          <div className="h-fit rounded-2xl bg-white p-6 shadow-sm dark:bg-gray-800">
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+              Order Summary
+            </h2>
 
             <div className="mt-6 space-y-4">
               {cart.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between border-b pb-4"
+                  className="flex items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-700"
                 >
                   <div>
-                    <h3 className="font-semibold">{item.name}</h3>
+                    <h3 className="font-semibold text-gray-900 dark:text-white">
+                      {item.name}
+                    </h3>
 
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
                       Qty: {item.quantity}
                     </p>
                   </div>
 
-                  <p className="font-semibold">
+                  <p className="font-semibold text-gray-900 dark:text-white">
                     ${(item.price * item.quantity).toFixed(2)}
                   </p>
                 </div>
@@ -177,8 +185,10 @@ function Checkout() {
             </div>
 
             {/* Total */}
-            <div className="mt-6 flex justify-between border-t pt-5 text-xl">
-              <span className="font-bold">Total</span>
+            <div className="mt-6 flex justify-between border-t border-gray-200 pt-5 text-xl dark:border-gray-700">
+              <span className="font-bold text-gray-900 dark:text-white">
+                Total
+              </span>
 
               <span className="font-bold text-blue-600">
                 ${subtotal.toFixed(2)}
