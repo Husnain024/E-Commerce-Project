@@ -1,6 +1,9 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+
 import { useSearchParams } from "react-router-dom";
+
 import { products } from "../data/products";
+
 import ProductCard from "../components/product/ProductCard";
 
 function Shop() {
@@ -9,21 +12,57 @@ function Shop() {
 
   const searchQuery = searchParams.get("search") || "";
 
+  // Category Filter
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  // Price Filter
+  const [maxPrice, setMaxPrice] = useState("All");
+
+  // Sort Products
+  const [sortBy, setSortBy] = useState("featured");
+
+  // Filter Products
   const filteredProducts = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
 
-    if (!query) {
-      return products;
-    }
-
     return products.filter((product) => {
-      return (
+      // Search Filter
+      const matchesSearch =
+        !query ||
         product.name.toLowerCase().includes(query) ||
         product.category.toLowerCase().includes(query) ||
-        product.description?.toLowerCase().includes(query)
-      );
+        product.description?.toLowerCase().includes(query);
+
+      // Category Filter
+      const matchesCategory =
+        selectedCategory === "All" || product.category === selectedCategory;
+
+      // Price Filter
+      const matchesPrice =
+        maxPrice === "All" || product.price <= Number(maxPrice);
+
+      return matchesSearch && matchesCategory && matchesPrice;
     });
-  }, [searchQuery]);
+  }, [searchQuery, selectedCategory, maxPrice]);
+
+  // Sort Products
+  const sortedProducts = useMemo(() => {
+    const sorted = [...filteredProducts];
+
+    if (sortBy === "price-low") {
+      sorted.sort((a, b) => a.price - b.price);
+    }
+
+    if (sortBy === "price-high") {
+      sorted.sort((a, b) => b.price - a.price);
+    }
+
+    if (sortBy === "rating") {
+      sorted.sort((a, b) => b.rating - a.rating);
+    }
+
+    return sorted;
+  }, [filteredProducts, sortBy]);
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
@@ -54,19 +93,64 @@ function Shop() {
                 All Products
               </h2>
 
+              {/* Product Count */}
               <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 {searchQuery
                   ? `Showing ${filteredProducts.length} results for "${searchQuery}"`
                   : `Showing ${filteredProducts.length} products`}
               </p>
+
+              {/* Category Filter */}
+              <div className="mt-6 flex flex-wrap gap-3">
+                {[
+                  "All",
+                  "Shoes",
+                  "Fashion",
+                  "Watches",
+                  "Electronics",
+                  "Furniture",
+                  "Accessories",
+                ].map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`rounded-full px-5 py-2 text-sm font-medium transition ${
+                      selectedCategory === category
+                        ? "bg-blue-600 text-white"
+                        : "bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+
+              {/* Price Filter */}
+              <div className="mt-6">
+                <select
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  className="rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700 outline-none focus:border-blue-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+                >
+                  <option value="All">All Prices</option>
+                  <option value="100">Under $100</option>
+                  <option value="200">Under $200</option>
+                  <option value="500">Under $500</option>
+                  <option value="1000">Under $1000</option>
+                </select>
+              </div>
             </div>
 
             {/* Sort UI */}
-            <select className="rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700 outline-none focus:border-blue-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
-              <option>Sort by: Featured</option>
-              <option>Price: Low to High</option>
-              <option>Price: High to Low</option>
-              <option>Rating</option>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="rounded-xl border border-gray-300 bg-white px-4 py-3 text-sm text-gray-700 outline-none focus:border-blue-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
+            >
+              <option value="featured">Sort by: Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Rating</option>
             </select>
           </div>
 
@@ -78,12 +162,12 @@ function Shop() {
               </h3>
 
               <p className="mt-2 text-gray-500 dark:text-gray-400">
-                Try searching for another product.
+                Try changing your search, category, or price filter.
               </p>
             </div>
           ) : (
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {filteredProducts.map((product) => (
+              {sortedProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
