@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 
 import Home from "./pages/Home";
+import Categories from "./components/sections/Categories";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -26,6 +27,7 @@ function App() {
         <Route path="/order-success" element={<OrderSuccess />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/categories" element={<Categories />} />
         <Route path="/about" element={<About />} />
         <Route path="/deals" element={<Deals />} />
       </Routes>

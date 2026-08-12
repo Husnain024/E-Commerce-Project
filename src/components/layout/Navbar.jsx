@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
 
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import {
   FiSearch,
+  FiX,
   FiHeart,
   FiShoppingCart,
   FiMenu,
@@ -16,12 +17,19 @@ import { WishlistContext } from "../../context/WishlistContext";
 import { ThemeContext } from "../../context/ThemeContext";
 
 function Navbar() {
+  // Stop reloading page while searching products
+  const navigate = useNavigate();
+
   const { cart } = useContext(CartContext);
   const { wishlist } = useContext(WishlistContext);
 
   // Mobile menu state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+
+  // Search Product
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
@@ -69,21 +77,71 @@ function Navbar() {
 
         {/* Right Side */}
         <div className="flex items-center gap-6">
-          {/* Search */}
+          {/* Desktop Search */}
           <div className="relative hidden xl:block">
             <FiSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500" />
 
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  navigate(`/shop?search=${encodeURIComponent(searchQuery)}`);
+                }
+              }}
               placeholder="Search products..."
-              className="h-7 w-64 rounded-full border border-gray-300 pl-11 pr-4 text-sm outline-none focus:border-blue-600"
+              className="h-7 w-64 rounded-full border border-gray-300 bg-white pl-11 pr-16 text-sm text-gray-900 outline-none focus:border-blue-600 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
             />
+
+            {/* Clear Desktop Search */}
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery("");
+                  navigate("/shop");
+                }}
+                className="absolute right-10 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-gray-700 dark:hover:text-white"
+                aria-label="Clear search"
+              >
+                <FiX size={16} />
+              </button>
+            )}
           </div>
 
-          {/* Tablet Search */}
-          <button aria-label="Search" className="xl:hidden">
-            <FiSearch size={24} />
-          </button>
+          {/* Tablet / Mobile Search */}
+          <div className="relative xl:hidden">
+            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  navigate(`/shop?search=${encodeURIComponent(searchQuery)}`);
+                }
+              }}
+              placeholder="Search..."
+              className="h-10 w-40 rounded-full border border-gray-300 bg-white pl-10 pr-10 text-sm text-gray-900 outline-none focus:border-blue-600 dark:border-gray-700 dark:bg-gray-800 dark:text-white sm:w-52"
+            />
+
+            {/* Clear Mobile Search */}
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery("");
+                  navigate("/shop");
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-gray-700 dark:hover:text-white"
+                aria-label="Clear search"
+              >
+                <FiX size={16} />
+              </button>
+            )}
+          </div>
 
           {/* Dark Mode */}
           <button
@@ -95,11 +153,7 @@ function Navbar() {
           </button>
 
           {/* Wishlist */}
-          <Link
-            to="/wishlist"
-            aria-label="Wishlist"
-            className="relative hidden sm:block"
-          >
+          <Link to="/wishlist" aria-label="Wishlist" className="relative">
             <FiHeart size={24} className="transition hover:text-red-500" />
 
             <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
@@ -181,6 +235,7 @@ function Navbar() {
             >
               About
             </NavLink>
+
             {/* Login */}
             <Link
               to="/login"
