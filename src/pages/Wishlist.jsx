@@ -1,5 +1,7 @@
 import { useContext } from "react";
+
 import { WishlistContext } from "../context/WishlistContext";
+
 import { CartContext } from "../context/CartContext";
 
 function Wishlist() {
@@ -7,17 +9,21 @@ function Wishlist() {
   const { cart, setCart } = useContext(CartContext);
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-20">
-      <h1 className="text-4xl font-bold">My Wishlist ❤️</h1>
+    <div className="mx-auto max-w-7xl bg-gray-50 px-6 py-20 dark:bg-gray-900">
+      <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+        My Wishlist ❤️
+      </h1>
 
       {wishlist.length === 0 ? (
-        <p className="mt-6 text-gray-500">Your wishlist is empty.</p>
+        <p className="mt-6 text-gray-500 dark:text-gray-400">
+          Your wishlist is empty.
+        </p>
       ) : (
         <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {wishlist.map((item) => (
             <div
               key={item.id}
-              className="overflow-hidden rounded-2xl bg-white shadow-md"
+              className="overflow-hidden rounded-2xl bg-white shadow-md dark:bg-gray-800"
             >
               {/* Product Image */}
               <img
@@ -28,13 +34,18 @@ function Wishlist() {
 
               {/* Product Details */}
               <div className="p-5">
-                <p className="text-sm text-gray-500">{item.category}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {item.category}
+                </p>
 
-                <h2 className="mt-2 text-xl font-semibold">{item.name}</h2>
+                <h2 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">
+                  {item.name}
+                </h2>
 
                 <p className="mt-3 text-xl font-bold text-blue-600">
                   ${item.price}
                 </p>
+
                 {/* Add to Cart */}
                 <button
                   onClick={() => {
