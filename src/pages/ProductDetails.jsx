@@ -116,13 +116,28 @@ function ProductDetails() {
         {/* Add to Cart */}
         <button
           onClick={() => {
-            setCart([
-              ...cart,
-              {
-                ...product,
-                quantity: quantity,
-              },
-            ]);
+            const existingProduct = cart.find((item) => item.id === product.id);
+
+            if (existingProduct) {
+              setCart(
+                cart.map((item) =>
+                  item.id === product.id
+                    ? {
+                        ...item,
+                        quantity: item.quantity + quantity,
+                      }
+                    : item,
+                ),
+              );
+            } else {
+              setCart([
+                ...cart,
+                {
+                  ...product,
+                  quantity: quantity,
+                },
+              ]);
+            }
           }}
           className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
         >

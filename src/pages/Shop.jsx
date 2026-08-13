@@ -1,12 +1,15 @@
 import { useMemo, useState } from "react";
 
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { products } from "../data/products";
 
 import ProductCard from "../components/product/ProductCard";
 
 function Shop() {
+  // Navigate without reloading page
+  const navigate = useNavigate();
+
   // For Searching products
   const [searchParams] = useSearchParams();
 
@@ -139,6 +142,23 @@ function Shop() {
                   <option value="1000">Under $1000</option>
                 </select>
               </div>
+
+              {/* Clear Filters */}
+              {(searchQuery ||
+                selectedCategory !== "All" ||
+                maxPrice !== "All") && (
+                <button
+                  onClick={() => {
+                    setSelectedCategory("All");
+                    setMaxPrice("All");
+                    setSortBy("featured");
+                    navigate("/shop");
+                  }}
+                  className="mt-4 rounded-xl border border-red-300 px-5 py-3 text-sm font-semibold text-red-600 transition hover:bg-red-50 dark:border-red-500 dark:text-red-400 dark:hover:bg-red-950"
+                >
+                  Clear Filters
+                </button>
+              )}
             </div>
 
             {/* Sort UI */}
