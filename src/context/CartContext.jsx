@@ -1,9 +1,18 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState([]);
+  // Load cart from localStorage and savinng app from crashing
+  const [cart, setCart] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem("cart");
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Failed to load cart:", error);
+      return [];
+    }
+  });
 
   // Remove product
   const removeFromCart = (id) => {
@@ -20,6 +29,11 @@ export function CartProvider({ children }) {
       ),
     );
   };
+
+  // Save cart to localStorage
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <CartContext.Provider

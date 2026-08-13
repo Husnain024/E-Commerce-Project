@@ -13,6 +13,7 @@ import Shop from "./pages/Shop";
 import About from "./pages/About";
 import Deals from "./pages/Deals";
 import Footer from "./components/layout/Footer";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
       </Routes>
 
       <Footer />
+      {/* Toast Notifications */}
+      <Toaster position="top-right" />
     </>
   );
 }

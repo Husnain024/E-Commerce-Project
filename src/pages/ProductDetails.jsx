@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+
 import { products } from "../data/products";
 import { CartContext } from "../context/CartContext";
 
@@ -138,6 +140,9 @@ function ProductDetails() {
                 },
               ]);
             }
+
+            // Toast Notification
+            toast.success(`${product.name} added to cart`);
           }}
           className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
         >

@@ -21,6 +21,9 @@ function Checkout() {
     postalCode: "",
   });
 
+  // Error State
+  const [errors, setErrors] = useState({});
+
   // useNavigate
   const navigate = useNavigate();
 
@@ -28,19 +31,47 @@ function Checkout() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      !formData.name ||
-      !formData.email ||
-      !formData.phone ||
-      !formData.address ||
-      !formData.city ||
-      !formData.postalCode
-    ) {
-      alert("Please fill all fields.");
-      return;
+    const newErrors = {};
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = "Full name is required.";
     }
 
-    navigate("/order-success");
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email.";
+    }
+
+    // Phone validation
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required.";
+    }
+
+    // Address validation
+    if (!formData.address.trim()) {
+      newErrors.address = "Address is required.";
+    }
+
+    // City validation
+    if (!formData.city.trim()) {
+      newErrors.city = "City is required.";
+    }
+
+    // Postal Code validation
+    if (!formData.postalCode.trim()) {
+      newErrors.postalCode = "Postal code is required.";
+    }
+
+    // Set errors
+    setErrors(newErrors);
+
+    // If no errors
+    if (Object.keys(newErrors).length === 0) {
+      navigate("/order-success");
+    }
   };
 
   return (
@@ -60,98 +91,161 @@ function Checkout() {
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-5">
               {/* Full Name */}
-              <input
-                type="text"
-                placeholder="Full Name"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    name: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
-              />
+              <div>
+                <input
+                  type="text"
+                  placeholder="Full Name"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      name: e.target.value,
+                    })
+                  }
+                  className={`w-full rounded-xl border bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 ${
+                    errors.name
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
+                  }`}
+                />
+
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                )}
+              </div>
 
               {/* Email */}
-              <input
-                type="email"
-                placeholder="Email Address"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    email: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
-              />
+              <div>
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      email: e.target.value,
+                    })
+                  }
+                  className={`w-full rounded-xl border bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 ${
+                    errors.email
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
+                  }`}
+                />
+
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                )}
+              </div>
 
               {/* Phone */}
-              <input
-                type="text"
-                placeholder="Phone Number"
-                value={formData.phone}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    phone: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
-              />
+              <div>
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  value={formData.phone}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      phone: e.target.value,
+                    })
+                  }
+                  className={`w-full rounded-xl border bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 ${
+                    errors.phone
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
+                  }`}
+                />
+
+                {errors.phone && (
+                  <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
+                )}
+              </div>
 
               {/* Address */}
-              <input
-                type="text"
-                placeholder="Address"
-                value={formData.address}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    address: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
-              />
+              <div>
+                <input
+                  type="text"
+                  placeholder="Address"
+                  value={formData.address}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      address: e.target.value,
+                    })
+                  }
+                  className={`w-full rounded-xl border bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 ${
+                    errors.address
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
+                  }`}
+                />
 
+                {errors.address && (
+                  <p className="mt-1 text-sm text-red-500">{errors.address}</p>
+                )}
+              </div>
+
+              {/* City & Postal Code */}
               <div className="grid gap-5 sm:grid-cols-2">
                 {/* City */}
-                <input
-                  type="text"
-                  placeholder="City"
-                  value={formData.city}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      city: e.target.value,
-                    })
-                  }
-                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
-                />
+                <div>
+                  <input
+                    type="text"
+                    placeholder="City"
+                    value={formData.city}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        city: e.target.value,
+                      })
+                    }
+                    className={`w-full rounded-xl border bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 ${
+                      errors.city
+                        ? "border-red-500"
+                        : "border-gray-300 dark:border-gray-600"
+                    }`}
+                  />
+
+                  {errors.city && (
+                    <p className="mt-1 text-sm text-red-500">{errors.city}</p>
+                  )}
+                </div>
 
                 {/* Postal Code */}
-                <input
-                  type="text"
-                  placeholder="Postal Code"
-                  value={formData.postalCode}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      postalCode: e.target.value,
-                    })
-                  }
-                  className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
-                />
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Postal Code"
+                    value={formData.postalCode}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        postalCode: e.target.value,
+                      })
+                    }
+                    className={`w-full rounded-xl border bg-white px-4 py-3 text-gray-900 outline-none placeholder:text-gray-400 focus:border-blue-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 ${
+                      errors.postalCode
+                        ? "border-red-500"
+                        : "border-gray-300 dark:border-gray-600"
+                    }`}
+                  />
 
-                {/* Place Order */}
-                <button
-                  type="submit"
-                  className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
-                >
-                  Place Order
-                </button>
+                  {errors.postalCode && (
+                    <p className="mt-1 text-sm text-red-500">
+                      {errors.postalCode}
+                    </p>
+                  )}
+                </div>
               </div>
+
+              {/* Place Order */}
+              <button
+                type="submit"
+                className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
+              >
+                Place Order
+              </button>
             </form>
           </div>
 
