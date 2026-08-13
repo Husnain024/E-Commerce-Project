@@ -2,6 +2,16 @@ import { Link } from "react-router-dom";
 import { FiCheckCircle, FiShoppingBag } from "react-icons/fi";
 
 function OrderSuccess() {
+  // Dynamic Order Number
+  const orderNumber = `#LC-${Date.now().toString().slice(-6)}`;
+
+  // Dynamic Order Date
+  const orderDate = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <div className="flex min-h-[75vh] items-center justify-center bg-gray-50 px-4 py-16 dark:bg-gray-900">
       <div className="w-full max-w-2xl rounded-3xl bg-white p-8 text-center shadow-sm dark:bg-gray-800 sm:p-12">
@@ -22,12 +32,22 @@ function OrderSuccess() {
 
         {/* Order Info */}
         <div className="mt-8 rounded-2xl bg-gray-50 p-5 dark:bg-gray-700">
+          {/* Order Number */}
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Order Number
           </p>
 
           <p className="mt-1 text-lg font-bold text-gray-900 dark:text-white">
-            #LC-2026-001
+            {orderNumber}
+          </p>
+
+          {/* Order Date */}
+          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+            Order Date
+          </p>
+
+          <p className="mt-1 font-semibold text-gray-900 dark:text-white">
+            {orderDate}
           </p>
         </div>
 

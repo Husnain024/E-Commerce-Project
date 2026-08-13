@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 function Checkout() {
-  const { cart } = useContext(CartContext);
+  // Cart Context
+  const { cart, setCart } = useContext(CartContext);
 
   // Subtotal
   const subtotal = cart.reduce(
@@ -11,7 +12,7 @@ function Checkout() {
     0,
   );
 
-  // Form useState
+  // Form State
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,7 +25,7 @@ function Checkout() {
   // Error State
   const [errors, setErrors] = useState({});
 
-  // useNavigate
+  // Navigate
   const navigate = useNavigate();
 
   // Handle Form Submit
@@ -33,43 +34,47 @@ function Checkout() {
 
     const newErrors = {};
 
-    // Name validation
+    // Name Validation
     if (!formData.name.trim()) {
       newErrors.name = "Full name is required.";
     }
 
-    // Email validation
+    // Email Validation
     if (!formData.email.trim()) {
       newErrors.email = "Email is required.";
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email.";
     }
 
-    // Phone validation
+    // Phone Validation
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required.";
     }
 
-    // Address validation
+    // Address Validation
     if (!formData.address.trim()) {
       newErrors.address = "Address is required.";
     }
 
-    // City validation
+    // City Validation
     if (!formData.city.trim()) {
       newErrors.city = "City is required.";
     }
 
-    // Postal Code validation
+    // Postal Code Validation
     if (!formData.postalCode.trim()) {
       newErrors.postalCode = "Postal code is required.";
     }
 
-    // Set errors
+    // Set Errors
     setErrors(newErrors);
 
-    // If no errors
+    // If there are no errors
     if (Object.keys(newErrors).length === 0) {
+      // Clear cart
+      setCart([]);
+
+      // Go to order success page
       navigate("/order-success");
     }
   };
@@ -186,7 +191,6 @@ function Checkout() {
                 )}
               </div>
 
-              {/* City & Postal Code */}
               <div className="grid gap-5 sm:grid-cols-2">
                 {/* City */}
                 <div>
@@ -255,28 +259,34 @@ function Checkout() {
               Order Summary
             </h2>
 
-            <div className="mt-6 space-y-4">
-              {cart.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-700"
-                >
-                  <div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white">
-                      {item.name}
-                    </h3>
+            {cart.length === 0 ? (
+              <p className="mt-6 text-gray-500 dark:text-gray-400">
+                Your cart is empty.
+              </p>
+            ) : (
+              <div className="mt-6 space-y-4">
+                {cart.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-700"
+                  >
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">
+                        {item.name}
+                      </h3>
 
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Qty: {item.quantity}
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        Qty: {item.quantity}
+                      </p>
+                    </div>
+
+                    <p className="font-semibold text-gray-900 dark:text-white">
+                      ${(item.price * item.quantity).toFixed(2)}
                     </p>
                   </div>
-
-                  <p className="font-semibold text-gray-900 dark:text-white">
-                    ${(item.price * item.quantity).toFixed(2)}
-                  </p>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
 
             {/* Total */}
             <div className="mt-6 flex justify-between border-t border-gray-200 pt-5 text-xl dark:border-gray-700">
